@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./Client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_CATALOG_API=http://localhost:8080/api
+      - NEXT_PUBLIC_ORDER_API=http://localhost:8081/api
+    depends_on:
+      - catalog_service
+      - order_service
+  
+  catalog_service:
+    build:
+      context: ./Server/CatalogService
+      dockerfile: ./Catalog.API/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__PostgreSQL=User ID=postgres;Password=catalogRoot;Host=catalog_postgresql;Port=5432;Database=IntraVisionCatalogDatabase;
+      - CorsOrigins__MainFrontendOrigin=http://localhost:3000
+      - CorsOrigins__DevFrontendOrigin=http://localhost:3001
+      - ImagesUrl=http://localhost:8080/images
+    volumes:
+      - ./wwwroot/images:/app/wwwroot/images
+    depends_on:
+      - catalog_postgresql
+    
+  order_service:
+    build:
+      context: ./Server/OrderService
+      dockerfile: ./Orders.API/Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__PostgreSQL=User ID=postgres;Password=orderRoot;Host=order_postgresql;Port=5432;Database=IntraVisionOrderDatabase;
+      - CorsOrigins__MainFrontendOrigin=http://localhost:3000
+      - CorsOrigins__DevFrontendOrigin=http://localhost:3001
+    depends_on:
+      - order_postgresql
+  
+  catalog_postgresql:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: IntraVisionCatalogDatabase
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: catalogRoot
+    ports:
+      - "5433:5432"
+    volumes:
+      - catalog_postgres_data:/var/lib/postgresql/data
+  
+  order_postgresql:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: IntraVisionOrderDatabase
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: orderRoot
+    ports:
+      - "5434:5432"
+    volumes:
+      - order_postgres_data:/var/lib/postgres/data
+
+volumes:
+  catalog_postgres_data:
+  order_postgres_data:
