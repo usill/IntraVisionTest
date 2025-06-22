@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Comic Sans";
+  src: url('/fonts/ComicSansMS.ttf');
+  font-weight: 400;
+}
+
+.font-comic {
+  font-family: "Comic Sans";
+}
