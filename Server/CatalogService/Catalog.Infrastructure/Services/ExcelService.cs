@@ -1,11 +1,12 @@
 ﻿using Catalog.Application;
-using Catalog.Domain;
 using Catalog.Domain.Entities;
+using Catalog.Domain.Interfaces.Repositories;
+using Catalog.Domain.Interfaces.Services;
 using Microsoft.Extensions.Configuration;
 using OfficeOpenXml;
 using OfficeOpenXml.Drawing;
 
-namespace Catalog.Infrastructure
+namespace Catalog.Infrastructure.Services
 {
     public class ExcelService : IExcelService
     {

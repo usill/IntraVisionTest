@@ -1,7 +1,11 @@
 
 using Microsoft.EntityFrameworkCore;
-using Orders.Domain;
+using Orders.Domain.Entities;
+using Orders.Domain.Interfaces.Repositories;
+using Orders.Domain.Interfaces.Services;
 using Orders.Infrastructure;
+using Orders.Infrastructure.Repositories;
+using Orders.Infrastructure.Services;
 
 namespace Orders.API
 {

@@ -18,8 +18,8 @@ const CartHandler: React.FC = () => {
           <h1 className="font-bold text-3xl text-slate-700">
             Оформление заказа
           </h1>
-          <CartTable></CartTable>
-          <CartFooter></CartFooter>
+          <CartTable/>
+          <CartFooter/>
         </section>
     </div>
   )

@@ -1,11 +1,9 @@
-import { MouseEventHandler } from "react";
 import { buttonDictionary, ButtonStyle, ButtonStyleItem } from "../Button/ButtonDictionary";
 
 export interface ButtonProps {
     style: ButtonStyle;
     children: React.ReactNode;
     className?: string;
-    onClick?: MouseEventHandler<HTMLAnchorElement>;
     href: string;
   }
   
@@ -13,7 +11,6 @@ export interface ButtonProps {
     style,
     children,
     className,
-    onClick,
     href
   }) => {
     const { textColor, bgColor }: ButtonStyleItem = buttonDictionary[style];
@@ -21,7 +18,6 @@ export interface ButtonProps {
     return (
       <a
         style={{ color: textColor, backgroundColor: bgColor }}
-        onClick={onClick}
         className={`py-3 cursor-pointer ${className}`}
         href={href}
       >

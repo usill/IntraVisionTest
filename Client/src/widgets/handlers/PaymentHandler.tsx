@@ -28,8 +28,8 @@ const PaymentHandler: React.FC = () => {
     <div className="container mx-auto">
       <section className="flex flex-col">
         <h1 className="font-bold text-3xl text-slate-700">Оплата</h1>
-        <PaymentTable></PaymentTable>
-        <PaymentFooter></PaymentFooter>
+        <PaymentTable/>
+        <PaymentFooter/>
       </section>
     </div>
   );

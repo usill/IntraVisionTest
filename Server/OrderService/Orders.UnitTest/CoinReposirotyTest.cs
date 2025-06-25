@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Orders.Domain;
+using Orders.Domain.Entities;
 using Orders.Infrastructure;
+using Orders.Infrastructure.Repositories;
+using Orders.Infrastructure.Services;
 
 namespace Orders.UnitTest
 {
@@ -19,8 +21,9 @@ namespace Orders.UnitTest
             context.SaveChanges();
 
             var repository = new CoinRepository(context);
-
-            var result = await repository.CheckCoinsAsync(5);
+            var service = new CoinService(repository);
+            
+            var result = await service.CheckCoinsAsync(5);
 
             Assert.Single(result);
             Assert.Equal(5, result[0].Value);

@@ -1,6 +1,6 @@
 ﻿using Catalog.Application.DTO;
-using Catalog.Domain;
 using Catalog.Domain.Entities;
+using Catalog.Domain.Interfaces;
 using Catalog.Domain.ProductSpecification;
 
 namespace Catalog.Application

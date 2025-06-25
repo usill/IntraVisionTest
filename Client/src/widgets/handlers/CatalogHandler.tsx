@@ -43,10 +43,10 @@ const CatalogHandler: React.FC = () => {
 
   return (
     <div className="container mx-auto">
-        <CatalogHeader></CatalogHeader>
-        <Line></Line>
-        <CatalogList></CatalogList>
-        <Preloader type={PreloaderType.Main}></Preloader>
+        <CatalogHeader/>
+        <Line/>
+        <CatalogList/>
+        <Preloader type={PreloaderType.Main}/>
     </div>
   );
 };

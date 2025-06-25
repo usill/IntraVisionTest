@@ -17,7 +17,7 @@ import InputPlusMinus from "@/shared/UI/InputPlusMinus";
 
 const CartTable: React.FC = () => {
   const emptyText = "У вас нет ни одного товара, вернитесь на страницу каталога";
-  const cartItems: CartItem[] = useSelector(
+  const cartItems = useSelector(
     (state: RootState) => state.cart.items
   );
   const dispatch = useDispatch();
@@ -68,9 +68,9 @@ const CartTable: React.FC = () => {
         <div className="col-span-4">Товар</div>
         <div className="col-span-2 text-center">Количество</div>
         <div className="col-span-2 text-center">Цена</div>
-        <div className="col-span-1"></div>
+        <div className="col-span-1"/>
       </div>
-      <Line></Line>
+      <Line/>
       <div className="flex flex-col gap-12">
         {cartItems?.map((cartItem) => {
           return (
@@ -83,7 +83,7 @@ const CartTable: React.FC = () => {
                   src={cartItem.product.imageUrl}
                   alt={cartItem.product.title}
                   className="h-[110px]"
-                ></img>
+                />
                 <p>{cartItem.product.title}</p>
               </div>
               <div className="col-span-2 flex justify-center">
@@ -94,7 +94,7 @@ const CartTable: React.FC = () => {
                   onCheckInput={checkProductCount}
                   context={cartItem}
                   value={cartItem.count}
-                ></InputPlusMinus>
+                />
               </div>
               <div className="col-span-2 flex justify-center">
                 <p className="text-2xl font-bold">
@@ -106,7 +106,7 @@ const CartTable: React.FC = () => {
                   className="cursor-pointer"
                   onClick={() => fullRemoveProduct(cartItem.product)}
                 >
-                  <Trash2 size={28}></Trash2>
+                  <Trash2 size={28}/>
                 </button>
               </div>
             </div>
@@ -114,7 +114,7 @@ const CartTable: React.FC = () => {
         })}
       </div>
       {emptyMessage}
-      <Line></Line>
+      <Line/>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import CartHandler from "@/widgets/handlers/CartHandler";
 export default function Home() {
   return (
     <ReduxProvider>
-      <CartHandler></CartHandler>
+      <CartHandler/>
     </ReduxProvider>
   );
 }

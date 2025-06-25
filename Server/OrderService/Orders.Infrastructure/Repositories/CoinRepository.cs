@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Orders.Domain;
+using Orders.Domain.Entities;
+using Orders.Domain.Interfaces.Repositories;
 using System.Linq.Expressions;
 
-namespace Orders.Infrastructure
+namespace Orders.Infrastructure.Repositories
 {
     public class CoinRepository : ICoinRepository
     {

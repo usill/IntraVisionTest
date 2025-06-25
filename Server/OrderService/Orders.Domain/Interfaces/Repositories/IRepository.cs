@@ -1,4 +1,4 @@
-﻿namespace Orders.Domain
+﻿namespace Orders.Domain.Interfaces.Repositories
 {
     public interface IRepository<T>
     {

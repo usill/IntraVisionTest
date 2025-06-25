@@ -1,5 +1,6 @@
-﻿
-namespace Orders.Domain
+﻿using Orders.Domain.Entities;
+
+namespace Orders.Domain.Interfaces.Services
 {
     public interface ICoinService
     {

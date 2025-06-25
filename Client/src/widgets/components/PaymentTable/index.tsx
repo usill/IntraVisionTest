@@ -45,13 +45,13 @@ const PaymentTable: React.FC = () => {
         <div className="col-span-2 text-center">Количество</div>
         <div className="col-span-2 text-center">Сумма</div>
       </div>
-      <Line></Line>
+      <Line/>
       <div className="flex flex-col gap-12">
       {coins?.map((coin) => {
         return (
           <div key={coin.id} className="grid grid-cols-8 w-full items-center">
             <div className="col-span-4 flex items-center gap-12">
-              <Circle value={coin.value}></Circle>
+              <Circle value={coin.value}/>
               <p>{coin.value} {checkPriceText(coin.value)}</p>
             </div>
             <div className="col-span-2 flex justify-center">
@@ -61,7 +61,7 @@ const PaymentTable: React.FC = () => {
                 onInput={inputCoin}
                 onCheckInput={checkCoinCount}
                 value={coin.count}
-                context={coin}></InputPlusMinus>
+                context={coin}/>
             </div>
             <div className="col-span-2 flex justify-center">
               <p className="text-2xl font-bold">{coin.value * coin.count} руб.</p>
@@ -70,7 +70,7 @@ const PaymentTable: React.FC = () => {
         );
       })}
       </div>
-      <Line></Line>
+      <Line/>
     </div>
   );
 };

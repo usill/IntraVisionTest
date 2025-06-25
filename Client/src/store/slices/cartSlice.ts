@@ -28,7 +28,8 @@ const cartSlice = createSlice({
 
       if (productInCart) {
         productInCart.count++;
-      } else if (productInList) {
+      } 
+      else if (productInList) {
         state.items.push({
           product: productInList,
           count: 1,

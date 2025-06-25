@@ -1,5 +1,5 @@
-﻿using Catalog.Domain;
-using Catalog.Domain.Entities;
+﻿using Catalog.Domain.Entities;
+using Catalog.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Catalog.Infrastructure
+namespace Catalog.Infrastructure.Repositories
 {
     public class BrandRepository : IBrandRepository
     {

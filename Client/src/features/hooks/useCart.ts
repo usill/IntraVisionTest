@@ -10,13 +10,7 @@ export function useCart() {
     const dispatch = useDispatch();
 
     const getTotalPrice = (cartItems: CartItem[]) : number => {
-        let price: number = 0;
-
-        for(const cartItem of cartItems) {
-            price += cartItem.count * cartItem.product.price;
-        }
-
-        return price;
+        return cartItems.reduce((prev, current) => prev + current.count * current.product.price, 0);
     }
 
     const initCart = () => {

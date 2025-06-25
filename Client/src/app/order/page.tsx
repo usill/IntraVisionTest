@@ -5,7 +5,7 @@ import "../globals.css";
 export default function Home() {
   return (
     <ReduxProvider>
-      <OrderHandler></OrderHandler>
+      <OrderHandler/>
     </ReduxProvider>
   );
 }

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Catalog.Domain
+namespace Catalog.Domain.Interfaces
 {
     public interface ISpecification<T>
     {

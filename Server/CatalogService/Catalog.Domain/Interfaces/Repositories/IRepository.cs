@@ -1,4 +1,4 @@
-﻿namespace Catalog.Domain
+﻿namespace Catalog.Domain.Interfaces.Repositories
 {
     public interface IRepository<T>
     {

@@ -1,4 +1,5 @@
 ﻿using Catalog.Domain.Entities;
+using Catalog.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

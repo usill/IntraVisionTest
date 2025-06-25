@@ -22,6 +22,7 @@ const OrderHandler: React.FC = () => {
             const parsed: CheckCoinsResult = JSON.parse(raw);
 
             if (parsed.successed) {
+                localStorage.removeItem(LocalStorageKeys.Cart);
                 setChangeResult(parsed);
             } else {
                 setError("Извините, в данный момент мы не можем продать вам товар по причине того, что автомат не может выдать вам нужную сдачу");

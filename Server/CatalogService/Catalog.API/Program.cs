@@ -1,6 +1,8 @@
-
-using Catalog.Domain;
+using Catalog.Domain.Interfaces.Repositories;
+using Catalog.Domain.Interfaces.Services;
 using Catalog.Infrastructure;
+using Catalog.Infrastructure.Repositories;
+using Catalog.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.API

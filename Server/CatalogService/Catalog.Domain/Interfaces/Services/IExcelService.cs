@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Catalog.Domain
+namespace Catalog.Domain.Interfaces.Services
 {
     public interface IExcelService
     {

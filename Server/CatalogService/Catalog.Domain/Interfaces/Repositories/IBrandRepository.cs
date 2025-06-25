@@ -1,7 +1,6 @@
-﻿
-using Catalog.Domain.Entities;
+﻿using Catalog.Domain.Entities;
 
-namespace Catalog.Domain
+namespace Catalog.Domain.Interfaces.Repositories
 {
     public interface IBrandRepository : IRepository<Brand>
     {

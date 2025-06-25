@@ -1,6 +1,7 @@
-﻿using System.Linq.Expressions;
+﻿using Orders.Domain.Entities;
+using System.Linq.Expressions;
 
-namespace Orders.Domain
+namespace Orders.Domain.Interfaces.Repositories
 {
     public interface ICoinRepository : IRepository<Coin>
     {

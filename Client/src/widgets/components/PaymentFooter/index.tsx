@@ -7,11 +7,12 @@ import { RootState } from "@/store";
 import Link from "@/shared/UI/Link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
 import { Route } from "@/core/Routes";
-import { sendCoinsChange } from "@/features/API/sendCoinsChange";
+import Button from "@/shared/UI/Button";
 import { CheckCoinsResult } from "@/shared/DTO/CheckCoinsResult";
+import { sendCoinsChange } from "@/features/API/sendCoinsChange";
 import { LocalStorageKeys } from "@/core/LocalStorageKeys";
+import { useRouter } from "next/navigation";
 
 const PaymentFooter: React.FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -61,9 +62,9 @@ const PaymentFooter: React.FC = () => {
         <Link href={Route.Cart} style={ButtonStyle.Yellow} className="px-24 text-xl">
             Вернуться
         </Link>
-        <Link href={Route.Order} onClick={redirectToOrder} style={ButtonStyle.Green} className="px-24 text-xl">
+        <Button onClick={redirectToOrder} style={ButtonStyle.Green} className="px-24 text-xl">
           Оплатить
-        </Link>
+        </Button>
       </div>
     </footer>
   );

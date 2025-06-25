@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Orders.Application.DTO;
-using Orders.Domain;
+using Orders.Domain.Entities;
+using Orders.Domain.Interfaces.Repositories;
+using Orders.Domain.Interfaces.Services;
 
 namespace Orders.API.Controllers
 {

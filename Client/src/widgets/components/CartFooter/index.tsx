@@ -6,30 +6,18 @@ import { ButtonStyle } from "@/shared/UI/Button/ButtonDictionary";
 import Link from "@/shared/UI/Link";
 import { RootState } from "@/store";
 import { setTotalPrice } from "@/store/slices/cartSlice";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const CartFooter: React.FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
-  const router = useRouter();
   const dispatch = useDispatch();
   const { getTotalPrice } = useCart();
 
   useEffect(() => {
     dispatch(setTotalPrice(getTotalPrice(cartItems)));
   }, [cartItems]);
-
-  const redirectToPayment = (event: React.MouseEvent) => {
-    event.preventDefault();
-
-    if (cartItems.length == 0) {
-      return;
-    }
-
-    router.push("/payment");
-  };
 
   return (
     <footer className="mt-auto">
@@ -45,7 +33,6 @@ const CartFooter: React.FC = () => {
           href={Route.Payment}
           style={ButtonStyle.Green}
           className="px-24 text-xl"
-          onClick={redirectToPayment}
         >
           Оплата
         </Link>

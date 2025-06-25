@@ -1,7 +1,7 @@
 ﻿using Catalog.Domain.Entities;
 using Catalog.Domain.ProductFields;
 
-namespace Catalog.Domain
+namespace Catalog.Domain.Interfaces.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     {

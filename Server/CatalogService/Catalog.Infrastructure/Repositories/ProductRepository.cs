@@ -1,9 +1,10 @@
-﻿using Catalog.Domain;
-using Catalog.Domain.Entities;
+﻿using Catalog.Domain.Entities;
+using Catalog.Domain.Interfaces;
+using Catalog.Domain.Interfaces.Repositories;
 using Catalog.Domain.ProductFields;
 using Microsoft.EntityFrameworkCore;
 
-namespace Catalog.Infrastructure
+namespace Catalog.Infrastructure.Repositories
 {
     public class ProductRepository : IProductRepository
     {

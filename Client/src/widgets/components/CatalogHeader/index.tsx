@@ -1,6 +1,5 @@
 "use client";
 
-import { Brand } from "@/entities/Brand";
 import { ButtonStyle } from "@/shared/UI/Button/ButtonDictionary";
 import { RootState } from "@/store";
 import { setSelectedBrand, setSelectedMinPrice } from "@/store/slices/catalogSlice";
@@ -8,21 +7,19 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Range } from "react-range";
 import { useDispatch, useSelector } from "react-redux";
 import { sendExcel } from "@/features/API/sendExcel";
-import { PriceRange } from "@/shared/types/PriceRange";
 import { useQueryParams } from "@/features/hooks/useQueryParams";
-import { CartItem } from "@/shared/DTO/CartItem";
 import { useProduct } from "@/features/hooks/useProduct";
 import { useRouter } from "next/navigation";
-import Link from "@/shared/UI/Link";
 import { Route } from "@/core/Routes";
+import Button from "@/shared/UI/Button";
 
 const CatalogHeader: React.FC = () => {
-  const brands: Brand[] = useSelector((state: RootState) => state.catalog.brands);
+  const brands = useSelector((state: RootState) => state.catalog.brands);
   const filters = useSelector((state: RootState) => state.catalog.selectedFilters);
-  const priceRange: PriceRange = useSelector((state: RootState) => state.catalog.productData.priceRange); 
+  const priceRange = useSelector((state: RootState) => state.catalog.productData.priceRange); 
   const [rangeEventMinPrice, setRangeEventMinPrice] = useState<number[]>([filters.minPrice]);
   const { getQueryParam, setQueryParam } = useQueryParams();
-  const cartItems: CartItem[] = useSelector((state: RootState) => state.cart.items);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   const [cartItemsCount, setCartItemsCount] = useState<number>(0);
   const { getProducts } = useProduct();
   const dispatch = useDispatch();
@@ -33,12 +30,7 @@ const CatalogHeader: React.FC = () => {
   }, [rangeEventMinPrice]);
 
   useEffect(() => {
-    let count = 0;
-
-    for(const item of cartItems) {
-        count += item.count;
-    }
-
+    const count = cartItems.reduce((prev, current) => prev + current.count, 0);
     setCartItemsCount(count);
   }, [cartItems]);
   
@@ -69,22 +61,22 @@ const CatalogHeader: React.FC = () => {
     const brandId: number = +event.target.value;
     dispatch(setSelectedBrand(brandId));
     setQueryParam("BrandId", brandId.toString(), true);
-    getProducts();
+    await getProducts();
   }
 
   async function changeFilterMinPrice(filter: number[]) {
     const minPrice:number = filter[0];
     setQueryParam("MinPrice", minPrice.toString());
-    getProducts();
+    await getProducts();
   }
 
-  async function redirectToCart(event: React.MouseEvent) {
+  function redirectToCart(event: React.MouseEvent) {
     event.preventDefault();
 
     if(cartItemsCount == 0)
         return;
 
-    router.push("/cart");
+    router.push(Route.Cart);
   }
 
   return (
@@ -154,14 +146,14 @@ const CatalogHeader: React.FC = () => {
                     />
                   )
               }}
-            ></Range>
+            />
           </div>
         </div>
       </div>
       <div className="flex flex-col justify-between">
         <label htmlFor="input" className="bg-gray-300 text-center py-3 cursor-pointer">Импорт</label>
         <input id="input" type="file" className="hidden" accept=".xlsx" onChange={sendExcel}/>
-        <Link href={Route.Cart} onClick={redirectToCart} style={ButtonStyle.Green} className="text-center">Выбрано: {cartItemsCount}</Link>
+        <Button onClick={redirectToCart} style={ButtonStyle.Green} className="text-center">Выбрано: {cartItemsCount}</Button>
       </div>
     </header>
   );

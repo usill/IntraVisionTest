@@ -22,7 +22,7 @@ const Preloader: React.FC<Props> = ({ type }) => {
     }
 
     const [visible, setVisible] = useState<string>("visible");
-    const isVisible: boolean = useSelector(selector);
+    const isVisible = useSelector(selector);
 
     useEffect(() => {
         setVisible(isVisible ? "visible" : "invisible");

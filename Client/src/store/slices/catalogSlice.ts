@@ -8,7 +8,7 @@ interface CatalogState {
   productData: FetchProductData;
   mainPreloaderVisible: boolean;
   productsPreloaderVisible: boolean;
-  selectedFilters: ProductFilters
+  selectedFilters: ProductFilters;
 }
 
 const initialState: CatalogState = {

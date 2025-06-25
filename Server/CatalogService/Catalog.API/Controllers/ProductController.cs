@@ -1,7 +1,9 @@
 ﻿using Catalog.Application;
 using Catalog.Application.DTO;
-using Catalog.Domain;
 using Catalog.Domain.Entities;
+using Catalog.Domain.Interfaces;
+using Catalog.Domain.Interfaces.Repositories;
+using Catalog.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.API.Controllers

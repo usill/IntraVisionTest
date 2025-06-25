@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <ReduxProvider>
       <Suspense>
-        <CatalogHandler></CatalogHandler>
+        <CatalogHandler/>
       </Suspense>
     </ReduxProvider>
   );

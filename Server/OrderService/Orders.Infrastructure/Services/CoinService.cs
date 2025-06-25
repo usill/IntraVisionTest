@@ -1,6 +1,8 @@
-﻿using Orders.Domain;
+﻿using Orders.Domain.Entities;
+using Orders.Domain.Interfaces.Repositories;
+using Orders.Domain.Interfaces.Services;
 
-namespace Orders.Infrastructure
+namespace Orders.Infrastructure.Services
 {
     public class CoinService : ICoinService
     {
