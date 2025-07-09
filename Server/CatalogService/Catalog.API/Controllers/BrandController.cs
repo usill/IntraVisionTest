@@ -1,4 +1,5 @@
 ﻿using Catalog.Application.DTO;
+using Catalog.Application.Redis;
 using Catalog.Domain.Entities;
 using Catalog.Domain.Interfaces.Repositories;
 using Catalog.Domain.Interfaces.Services;
@@ -11,15 +12,16 @@ namespace Catalog.API.Controllers
     public class BrandController : ControllerBase
     {
         private readonly IBrandRepository _brandRepository;
-        private readonly IRedisCacheService _cacheService;
-        public BrandController(IBrandRepository brandRepository)
+        private readonly IRedisCacheService _redis;
+        public BrandController(IBrandRepository brandRepository, IRedisCacheService redis)
         {
             _brandRepository = brandRepository;
+            _redis = redis;
         }
         [HttpGet("all")]
         public async Task<IEnumerable<Brand>> GetAll()
         {
-            var cachedBrands = await _cacheService.GetAsync<List<Brand>>("list:brands");
+            var cachedBrands = await _redis.GetAsync<List<Brand>>(RedisKeys.BrandsList);
             
             if(cachedBrands is not null)
             {
@@ -27,7 +29,7 @@ namespace Catalog.API.Controllers
             }
 
             var brands = await _brandRepository.GetAll();
-            await _cacheService.SetAsync("list:brands", brands, TimeSpan.FromMinutes(10));
+            await _redis.SetAsync(RedisKeys.BrandsList, brands, TimeSpan.FromMinutes(10));
             return brands;
         }
         [HttpPost("create")]
@@ -46,6 +48,7 @@ namespace Catalog.API.Controllers
             try
             {
                 await _brandRepository.AddAsync(newBrand);
+                await _redis.RemoveAsync(RedisKeys.BrandsList);
                 return Ok();
             }
             catch(Exception ex)
@@ -58,6 +61,7 @@ namespace Catalog.API.Controllers
         public async Task Clear()
         {
             await _brandRepository.RemoveAllAsync();
+            await _redis.RemoveAsync(RedisKeys.BrandsList);
         }
     }
 }

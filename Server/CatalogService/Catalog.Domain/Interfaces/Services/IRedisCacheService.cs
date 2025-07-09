@@ -10,5 +10,7 @@ namespace Catalog.Domain.Interfaces.Services
     {
         public Task<T?> GetAsync<T>(string key);
         public Task SetAsync(string key, object value, TimeSpan? expiry);
+        public Task RemoveAsync(string key);
+        public Task UpdateAsync(string key, object value, TimeSpan? expiry);
     }
 }

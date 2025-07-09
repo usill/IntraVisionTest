@@ -26,5 +26,14 @@ namespace Catalog.Infrastructure.Services
         {
             await _db.StringSetAsync(key, JsonSerializer.Serialize(value), expiry);
         }
+        public async Task RemoveAsync(string key)
+        {
+            await _db.KeyDeleteAsync(key);
+        }
+        public async Task UpdateAsync(string key, object value, TimeSpan? expiry)
+        {
+            await RemoveAsync(key);
+            await SetAsync(key, value, expiry);
+        }
     }
 }

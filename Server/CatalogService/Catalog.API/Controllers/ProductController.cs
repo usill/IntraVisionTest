@@ -1,5 +1,6 @@
 ﻿using Catalog.Application;
 using Catalog.Application.DTO;
+using Catalog.Application.Redis;
 using Catalog.Domain.Entities;
 using Catalog.Domain.Interfaces;
 using Catalog.Domain.Interfaces.Repositories;
@@ -30,8 +31,7 @@ namespace Catalog.API.Controllers
         [HttpGet("list")]
         public async Task<ProductListDto> GetList([FromQuery] ProductFiltersDto filters)
         {
-            var redisKey = $"list:{filters.Page}:{filters.BrandId}:{filters.MinPrice}";
-            var redisValue = await _redis.GetAsync<ProductListDto>(redisKey);
+            var redisValue = await _redis.GetAsync<ProductListDto>(RedisKeys.ProductsMainList);
 
             if(redisValue is not null)
             {
@@ -47,10 +47,9 @@ namespace Catalog.API.Controllers
                 PriceRange = await _productRepository.GetPriceRange(filtersSpec)
             };
 
-            // Default first page
             if(filters.Page == 1 && filters.BrandId == 0 && filters.MinPrice == 0)
             {
-                await _redis.SetAsync(redisKey, result, TimeSpan.FromMinutes(15));
+                await _redis.SetAsync(RedisKeys.ProductsMainList, result, TimeSpan.FromMinutes(15));
             }
 
             return result;
@@ -75,6 +74,7 @@ namespace Catalog.API.Controllers
             try
             {
                 await _productRepository.AddAsync(newProduct);
+                await _redis.RemoveAsync(RedisKeys.ProductsMainList);
                 return Ok();
             }
             catch(Exception ex)
@@ -119,6 +119,7 @@ namespace Catalog.API.Controllers
         public async Task Clear()
         {
             await _productRepository.RemoveAllAsync();
+            await _redis.RemoveAsync(RedisKeys.ProductsMainList);
         }
     }
 }
