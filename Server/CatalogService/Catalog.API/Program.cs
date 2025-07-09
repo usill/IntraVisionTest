@@ -4,6 +4,7 @@ using Catalog.Infrastructure;
 using Catalog.Infrastructure.Repositories;
 using Catalog.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace Catalog.API
 {
@@ -46,9 +47,24 @@ namespace Catalog.API
                 options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"))
             );
 
+            var redisHost = builder.Configuration.GetSection("Redis:Host").Get<string>();
+            var redisPort = builder.Configuration.GetSection("Redis:Port").Get<string>();
+            var redisPassword = builder.Configuration.GetSection("Redis:Password").Get<string>();
+
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+            builder.Logging.AddDebug();
+            builder.Logging.AddEventSourceLogger();
+
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();
             builder.Services.AddScoped<IExcelService, ExcelService>();
+            builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(new ConfigurationOptions
+            {
+                EndPoints = { $"{redisHost}:{redisPort}" },
+                Password = redisPassword,
+            }));
+            builder.Services.AddScoped<IRedisCacheService, RedisCacheService>();
 
             var app = builder.Build();
 

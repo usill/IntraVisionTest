@@ -1,6 +1,7 @@
 ﻿using Catalog.Application.DTO;
 using Catalog.Domain.Entities;
 using Catalog.Domain.Interfaces.Repositories;
+using Catalog.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.API.Controllers
@@ -10,6 +11,7 @@ namespace Catalog.API.Controllers
     public class BrandController : ControllerBase
     {
         private readonly IBrandRepository _brandRepository;
+        private readonly IRedisCacheService _cacheService;
         public BrandController(IBrandRepository brandRepository)
         {
             _brandRepository = brandRepository;
@@ -17,7 +19,16 @@ namespace Catalog.API.Controllers
         [HttpGet("all")]
         public async Task<IEnumerable<Brand>> GetAll()
         {
-            return await _brandRepository.GetAll();
+            var cachedBrands = await _cacheService.GetAsync<List<Brand>>("list:brands");
+            
+            if(cachedBrands is not null)
+            {
+                return cachedBrands;
+            }
+
+            var brands = await _brandRepository.GetAll();
+            await _cacheService.SetAsync("list:brands", brands, TimeSpan.FromMinutes(10));
+            return brands;
         }
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] BrandCreateDto brand)

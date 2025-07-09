@@ -26,10 +26,14 @@ services:
       - CorsOrigins__MainFrontendOrigin=http://localhost:3000
       - CorsOrigins__DevFrontendOrigin=http://localhost:3001
       - ImagesUrl=http://localhost:8080/images
+      - Redis__Host=redis
+      - Redis__Port=6379
+      - Redis__Password=secret
     volumes:
       - ./wwwroot/images:/app/wwwroot/images
     depends_on:
       - catalog_postgresql
+      - redis
     
   order_service:
     build:
@@ -66,6 +70,14 @@ services:
       - "5434:5432"
     volumes:
       - order_postgres_data:/var/lib/postgres/data
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=secret
+    command: redis-server --requirepass secret
 
 volumes:
   catalog_postgres_data:
