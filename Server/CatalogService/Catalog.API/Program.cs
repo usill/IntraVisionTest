@@ -64,7 +64,7 @@ namespace Catalog.API
                 EndPoints = { $"{redisHost}:{redisPort}" },
                 Password = redisPassword,
             }));
-            builder.Services.AddScoped<IRedisCacheService, RedisCacheService>();
+            builder.Services.AddSingleton<IRedisCacheService, RedisCacheService>();
 
             var app = builder.Build();
 
